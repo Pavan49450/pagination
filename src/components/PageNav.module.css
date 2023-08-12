@@ -27,6 +27,12 @@
 
 .hide {
   visibility: hidden;
+  background-color: white;
+  border: 0px solid;
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px;
+  width: 30px;
 }
 
 @media screen and (max-width: 500px) {

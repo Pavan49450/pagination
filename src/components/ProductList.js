@@ -8,6 +8,7 @@ const ProductList = (props) => {
         gridTemplateColumns: "repeat(auto-fit ,minmax(350px, 1fr))",
         alignItems: "center",
         padding: "10px",
+        justifyItems: "center",
       }}
     >
       {props.products.map((product) => {

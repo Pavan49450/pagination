@@ -1,36 +1,37 @@
-import logo from "./logo.svg";
 import "./App.css";
 import useHttps from "./hooks/use-Https";
 import { useEffect, useState } from "react";
 import ProductList from "./components/ProductList";
+import PageNav from "./components/PageNav";
 
 function App() {
   const { isLoading, error, sendRequest } = useHttps();
   const [products, setProducts] = useState(null);
+  const [page, setPage] = useState(1);
 
-  const fetchProducts = (data) => {
-    console.log("data->", data.products);
-    const loadedProducts = [];
-    for (const index in data.products) {
-      // console.log(product);
-      loadedProducts.push({
-        id: data.products[index].id,
-        brand: data.products[index].brand,
-        category: data.products[index].category,
-        discountPercentage: data.products[index].discountPercentage,
-        images: data.products[index].images,
-        rating: data.products[index].rating,
-        stock: data.products[index].stock,
-        thumbnail: data.products[index].thumbnail,
-        title: data.products[index].title,
-        description: data.products[index].description,
-        price: data.products[index].price,
-      });
-    }
-    setProducts(loadedProducts);
-    console.log("products->", loadedProducts);
+  const changePageHandler = (pageNumber) => {
+    setPage(pageNumber);
   };
-  const displayProducts = products.slice(0, 10);
+
+  const currentPage = page;
+  const fetchProducts = (data) => {
+    const loadedProducts = data.products.map((product) => ({
+      id: product.id,
+      brand: product.brand,
+      category: product.category,
+      discountPercentage: product.discountPercentage,
+      images: product.images,
+      rating: product.rating,
+      stock: product.stock,
+      thumbnail: product.thumbnail,
+      title: product.title,
+      description: product.description,
+      price: product.price,
+    }));
+    setProducts(loadedProducts);
+    console.log("products", products);
+  };
+
   useEffect(() => {
     sendRequest(
       { url: "https://dummyjson.com/products?limit=100" },
@@ -38,9 +39,24 @@ function App() {
     );
   }, []);
 
+  const productsPerPage = 10;
+  const startIndex = (page - 1) * productsPerPage;
+  const endIndex = startIndex + productsPerPage;
+  const displayProducts = products?.slice(startIndex, endIndex);
+
   return (
     <div className="App">
-      <ProductList products={displayProducts} />
+      {!isLoading ? (
+        displayProducts && <ProductList products={displayProducts} />
+      ) : (
+        <p>Loading...</p>
+      )}
+
+      <PageNav
+        changePage={changePageHandler}
+        noOfPages={products ? products.length / 10 : 0}
+        currentPage={page}
+      ></PageNav>
     </div>
   );
 }

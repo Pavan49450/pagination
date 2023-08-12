@@ -5,7 +5,7 @@ import ProductList from "./components/ProductList";
 import PageNav from "./components/PageNav";
 
 function App() {
-  const { isLoading, error, sendRequest } = useHttps();
+  const { isLoading, sendRequest } = useHttps();
   const [products, setProducts] = useState(null);
   const [page, setPage] = useState(1);
 

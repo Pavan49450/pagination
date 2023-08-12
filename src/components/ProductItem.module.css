@@ -1,0 +1,38 @@
+.productItem {
+  /* width: 200px; */
+  /* padding: 20px; */
+  border: 1px solid;
+  width: 300px;
+  margin: 10px;
+  height: 280px;
+}
+.productItem img {
+  width: 300px;
+  height: 250px;
+}
+
+.productDetails {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.productDetails .title,
+.productDetails p {
+  /* padding: 10px; */
+  margin: auto 5px;
+  width: 25%;
+}
+
+.productDetails .title {
+  width: 70%;
+  height: 21px;
+  overflow: hidden;
+}
+
+.productDetails .id {
+  border: 1px solid;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}

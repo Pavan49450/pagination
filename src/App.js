@@ -31,13 +31,13 @@ function App() {
     }));
     setTotal(data.total);
     setProducts(loadedProducts);
-    console.log("products", products);
+    // console.log("products", products);
   };
 
   const productsPerPage = 10;
   const startIndex = (page - 1) * productsPerPage;
   const endIndex = 10;
-  const displayProducts = products?.slice(startIndex, endIndex);
+  // const displayProducts = products?.slice(startIndex, endIndex);
 
   useEffect(() => {
     sendRequest(
@@ -50,7 +50,7 @@ function App() {
       },
       fetchProducts
     );
-  }, []);
+  }, [page]);
 
   return (
     <div className="App">

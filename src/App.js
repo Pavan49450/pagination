@@ -3,6 +3,7 @@ import useHttps from "./hooks/use-Https";
 import { useEffect, useState } from "react";
 import ProductList from "./components/ProductList";
 import PageNav from "./components/PageNav";
+import Loading from "./assets/Animations/Loading";
 
 function App() {
   const { isLoading, error, sendRequest } = useHttps();
@@ -40,6 +41,8 @@ function App() {
   // const displayProducts = products?.slice(startIndex, endIndex);
 
   useEffect(() => {
+    
+
     sendRequest(
       {
         url:
@@ -50,6 +53,7 @@ function App() {
       },
       fetchProducts
     );
+    
   }, [page]);
 
   return (
@@ -57,7 +61,7 @@ function App() {
       {!isLoading ? (
         products && <ProductList products={products} />
       ) : (
-        <p>Loading...</p>
+        <Loading />
       )}
 
       <PageNav

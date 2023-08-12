@@ -3,10 +3,11 @@ import style from "./PageNav.module.css";
 const PageNav = (props) => {
   const generatePageNumbers = () => {
     const pageNumbers = [];
+    console.log(props.noOfPages);
     for (let i = 1; i <= props.noOfPages; i++) {
       pageNumbers.push(i);
     }
-    // console.log("numbers", pageNumbers);
+    console.log("numbers", pageNumbers);
     // console.log("pages", props.noOfPages);
     return pageNumbers;
   };

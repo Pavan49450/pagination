@@ -32,22 +32,28 @@ function App() {
     console.log("products", products);
   };
 
+  const productsPerPage = 10;
+  const startIndex = (page - 1) * productsPerPage;
+  const endIndex = 10;
+  const displayProducts = products?.slice(startIndex, endIndex);
+
   useEffect(() => {
     sendRequest(
-      { url: "https://dummyjson.com/products?limit=100" },
+      {
+        url:
+          "https://dummyjson.com/products?limit=" +
+          endIndex +
+          "&skip=" +
+          "startIndex",
+      },
       fetchProducts
     );
   }, []);
 
-  const productsPerPage = 10;
-  const startIndex = (page - 1) * productsPerPage;
-  const endIndex = startIndex + productsPerPage;
-  const displayProducts = products?.slice(startIndex, endIndex);
-
   return (
     <div className="App">
       {!isLoading ? (
-        displayProducts && <ProductList products={displayProducts} />
+        products && <ProductList products={products} />
       ) : (
         <p>Loading...</p>
       )}

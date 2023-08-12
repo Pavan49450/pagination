@@ -16,7 +16,7 @@ const PageNav = (props) => {
         onClick={() => props.changePage(props.currentPage - 1)}
         className={props.currentPage <= 1 ? style.hide : style.pageNumber}
       >
-        <span class="material-symbols-outlined">chevron_left</span>
+        <span className="material-symbols-outlined">chevron_left</span>
       </button>
 
       {generatePageNumbers().map((pageNumber) => (
@@ -37,7 +37,7 @@ const PageNav = (props) => {
           props.currentPage >= props.noOfPages ? style.hide : style.pageNumber
         }
       >
-        <span class="material-symbols-outlined">chevron_right</span>
+        <span className="material-symbols-outlined">chevron_right</span>
       </button>
     </div>
   );

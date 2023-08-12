@@ -8,7 +8,6 @@ import Loading from "./assets/Animations/Loading";
 function App() {
   const { isLoading, sendRequest } = useHttps();
   const [products, setProducts] = useState(null);
-  const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
 
   const changePageHandler = (pageNumber) => {
@@ -30,43 +29,33 @@ function App() {
       description: product.description,
       price: product.price,
     }));
-    setTotal(data.total);
     setProducts(loadedProducts);
-    // console.log("products", products);
+    console.log("products", products);
   };
+
+  useEffect(() => {
+    sendRequest(
+      { url: "https://dummyjson.com/products?limit=100" },
+      fetchProducts
+    );
+  }, []);
 
   const productsPerPage = 10;
   const startIndex = (page - 1) * productsPerPage;
-  const endIndex = 10;
-  // const displayProducts = products?.slice(startIndex, endIndex);
-
-  useEffect(() => {
-    
-
-    sendRequest(
-      {
-        url:
-          "https://dummyjson.com/products?limit=" +
-          endIndex +
-          "&skip=" +
-          startIndex,
-      },
-      fetchProducts
-    );
-    
-  }, [page]);
+  const endIndex = startIndex + productsPerPage;
+  const displayProducts = products?.slice(startIndex, endIndex);
 
   return (
     <div className="App">
       {!isLoading ? (
-        products && <ProductList products={products} />
+        displayProducts && <ProductList products={displayProducts} />
       ) : (
-        <Loading />
+        <Loading/>
       )}
 
       <PageNav
         changePage={changePageHandler}
-        noOfPages={products ? total / 10 : 0}
+        noOfPages={products ? products.length / 10 : 0}
         currentPage={page}
       ></PageNav>
     </div>

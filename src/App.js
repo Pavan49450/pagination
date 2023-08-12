@@ -7,6 +7,7 @@ import PageNav from "./components/PageNav";
 function App() {
   const { isLoading, error, sendRequest } = useHttps();
   const [products, setProducts] = useState(null);
+  const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
 
   const changePageHandler = (pageNumber) => {
@@ -28,6 +29,7 @@ function App() {
       description: product.description,
       price: product.price,
     }));
+    setTotal(data.total);
     setProducts(loadedProducts);
     console.log("products", products);
   };
@@ -44,7 +46,7 @@ function App() {
           "https://dummyjson.com/products?limit=" +
           endIndex +
           "&skip=" +
-          "startIndex",
+          startIndex,
       },
       fetchProducts
     );
@@ -60,7 +62,7 @@ function App() {
 
       <PageNav
         changePage={changePageHandler}
-        noOfPages={products ? products.length / 10 : 0}
+        noOfPages={products ? total / 10 : 0}
         currentPage={page}
       ></PageNav>
     </div>

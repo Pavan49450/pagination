@@ -7,7 +7,7 @@ const ProductItem = (props) => {
       <div className={style.productDetails}>
         <p className={style.id}>{props.id}</p>
         <div className={style.title}>{props.title}</div>
-        <p className={style.price}>${props.price}</p>
+        <p className={style.price}>₹{props.price}</p>
       </div>
     </div>
   );
